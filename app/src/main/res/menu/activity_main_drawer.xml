@@ -4,19 +4,19 @@
     <group android:checkableBehavior="single">
         <item
             android:id="@+id/nav_home"
-            android:icon="@drawable/ic_menu_camera"
+            android:icon="@drawable/ic_home_black_48dp"
             android:title="Home" />
         <item
             android:id="@+id/nav_button"
-            android:icon="@drawable/ic_menu_camera"
+            android:icon="@drawable/ic_view_list_black_48dp"
             android:title="Button Controls" />
         <item
             android:id="@+id/nav_gesture"
-            android:icon="@drawable/ic_menu_camera"
+            android:icon="@drawable/ic_gesture_black_48dp"
             android:title="Gesture Controls" />
         <item
             android:id="@+id/nav_voice"
-            android:icon="@drawable/ic_menu_camera"
+            android:icon="@drawable/ic_keyboard_voice_black_48dp"
             android:title="Voice Controls" />
     </group>
 
