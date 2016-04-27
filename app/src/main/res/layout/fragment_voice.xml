@@ -1,0 +1,16 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context="client.project.sumana.androidremoteclient.voicefragment.VoiceFragment">
+
+<ImageView
+    android:id="@+id/image_button"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:src="@drawable/ic_keyboard_voice_black_48dp"
+    android:layout_margin="100dp" />
+
+
+</LinearLayout>
