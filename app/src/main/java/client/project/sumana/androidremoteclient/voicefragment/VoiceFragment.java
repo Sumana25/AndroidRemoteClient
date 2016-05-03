@@ -20,6 +20,7 @@ import java.util.ArrayList;
 import java.util.Locale;
 
 import client.project.sumana.androidremoteclient.R;
+import client.project.sumana.androidremoteclient.constants.Constants;
 import client.project.sumana.androidremoteclient.http.HTTPRequestClient;
 import cz.msebera.android.httpclient.Header;
 
@@ -127,7 +128,7 @@ public class VoiceFragment extends Fragment {
     }
 
     public void runVoiceCommand(String command) {
-        HTTPRequestClient.get("/do_action?action="+command,
+        HTTPRequestClient.get(Constants.getAbsoluteUrl("/do_action?action="+command, getContext()),
                 null,
                 new AsyncHttpResponseHandler() {
                     @Override

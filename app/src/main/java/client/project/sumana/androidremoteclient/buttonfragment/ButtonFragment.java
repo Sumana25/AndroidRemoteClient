@@ -76,7 +76,7 @@ public class ButtonFragment extends Fragment {
         notepadButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                HTTPRequestClient.get("/do_action?action=open_notepad",
+                HTTPRequestClient.get(Constants.getAbsoluteUrl("/do_action?action=open_notepad", getContext()),
                         null,
                         new AsyncHttpResponseHandler() {
                             @Override
