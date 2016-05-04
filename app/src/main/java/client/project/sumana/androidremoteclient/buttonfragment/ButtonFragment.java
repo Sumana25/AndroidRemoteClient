@@ -1,6 +1,7 @@
 package client.project.sumana.androidremoteclient.buttonfragment;
 
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
@@ -16,6 +17,7 @@ import java.io.UnsupportedEncodingException;
 import client.project.sumana.androidremoteclient.R;
 import client.project.sumana.androidremoteclient.constants.Constants;
 import client.project.sumana.androidremoteclient.http.HTTPRequestClient;
+import client.project.sumana.androidremoteclient.videoplayer.VideoPlayerActivity;
 import cz.msebera.android.httpclient.Header;
 
 /**
@@ -33,7 +35,7 @@ public class ButtonFragment extends Fragment {
     private String mParam1;
     private String mParam2;
 
-    Button notepadButton;
+    Button notepadButton, videoPlayerButton;
 
 
     public ButtonFragment() {
@@ -73,6 +75,7 @@ public class ButtonFragment extends Fragment {
         // Inflate the layout for this fragment
         View v = inflater.inflate(R.layout.fragment_button, container, false);
         notepadButton = (Button) v.findViewById(R.id.notepad_button);
+        videoPlayerButton = (Button) v.findViewById(R.id.video_player__button);
         notepadButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -97,6 +100,15 @@ public class ButtonFragment extends Fragment {
                         });
             }
         });
+
+        videoPlayerButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent i = new Intent(getActivity(), VideoPlayerActivity.class);
+                startActivity(i);
+            }
+        });
+
         return v;
     }
 

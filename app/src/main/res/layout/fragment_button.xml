@@ -1,14 +1,23 @@
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="client.project.sumana.androidremoteclient.buttonfragment.ButtonFragment">
+    android:orientation="vertical"
+    tools:context="client.project.sumana.androidremoteclient.buttonfragment.ButtonFragment"
+    android:gravity="center_horizontal">
 
 <Button
     android:id="@+id/notepad_button"
-    android:layout_width="wrap_content"
+    android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:text="Open Notepad"
-    android:layout_gravity="center" />
+    android:layout_margin="10dp"/>
 
-</FrameLayout>
+    <Button
+        android:id="@+id/video_player__button"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Video Player"
+        android:layout_margin="10dp"/>
+
+</LinearLayout>
