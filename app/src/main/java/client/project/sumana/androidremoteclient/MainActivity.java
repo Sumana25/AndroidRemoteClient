@@ -18,6 +18,7 @@ import com.squareup.seismic.ShakeDetector;
 
 import client.project.sumana.androidremoteclient.buttonfragment.ButtonFragment;
 import client.project.sumana.androidremoteclient.constants.Constants;
+import client.project.sumana.androidremoteclient.gesturefragment.GestureFragment;
 import client.project.sumana.androidremoteclient.homefragment.HomeFragment;
 import client.project.sumana.androidremoteclient.voicefragment.VoiceFragment;
 
@@ -98,7 +99,7 @@ public class MainActivity extends AppCompatActivity
         } else if( id == R.id.nav_button) {
             getSupportFragmentManager().beginTransaction().replace(R.id.fragment_holder, ButtonFragment.newInstance("","")).commit();
         } else if( id == R.id.nav_gesture) {
-            getSupportFragmentManager().beginTransaction().replace(R.id.fragment_holder, HomeFragment.newInstance("","")).commit();
+            getSupportFragmentManager().beginTransaction().replace(R.id.fragment_holder, GestureFragment.newInstance("","")).commit();
         } else if( id == R.id.nav_voice) {
             getSupportFragmentManager().beginTransaction().replace(R.id.fragment_holder, VoiceFragment.newInstance("","")).commit();
         }
