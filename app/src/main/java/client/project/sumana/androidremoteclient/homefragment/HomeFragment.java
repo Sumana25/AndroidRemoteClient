@@ -1,6 +1,8 @@
 package client.project.sumana.androidremoteclient.homefragment;
 
 
+import android.app.Activity;
+import android.hardware.SensorManager;
 import android.os.Bundle;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
@@ -11,6 +13,8 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import com.squareup.seismic.ShakeDetector;
 
 import java.util.ArrayList;
 import java.util.concurrent.RunnableFuture;
@@ -25,7 +29,7 @@ import client.project.sumana.androidremoteclient.discovery.ServerAddress;
  * Use the {@link HomeFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class HomeFragment extends Fragment {
+public class HomeFragment extends Fragment implements ShakeDetector.Listener{
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
@@ -80,40 +84,53 @@ public class HomeFragment extends Fragment {
         discoverButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                new DiscoveryThread(getContext(), new DiscoveryThread.Receiver() {
-                    @Override
-                    public void addAnnouncedServers(final ArrayList<ServerAddress> servers) {
-                        Log.d(DiscoveryThread.TAG, servers.toString());
-                        getActivity().runOnUiThread(new Runnable() {
-                            @Override
-                            public void run() {
-                                Toast.makeText(getContext(), "Found "+servers.size()+ " server(s)", Toast.LENGTH_SHORT).show();
-                                if(servers.size() > 0) {
-                                    ServerAddress s = servers.get(0);
-                                    Toast.makeText(getContext(), s.getmAddr()+"/"+s.getmName(), Toast.LENGTH_SHORT).show();
-                                    Constants.putServerName(getContext(), s.getmName());
-                                    Constants.putServerAddress(getContext(), s.getmAddr());
-                                }
-                                setConnectionInfo();
-                            }
-                        });
-
-                    }
-                }).start();
+                initiateConnection();
             }
         });
 
         disconnectButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(getContext(), "Disconnected", Toast.LENGTH_SHORT).show();
-                Constants.putServerAddress(getContext(), null);
-                Constants.putServerName(getContext(), null);
-                setConnectionInfo();
+                disconnectConnection();
             }
         });
         setConnectionInfo();
+
+        SensorManager sensorManager = (SensorManager) getActivity().getSystemService(Activity.SENSOR_SERVICE);
+        ShakeDetector sd = new ShakeDetector(this);
+        sd.start(sensorManager);
+
         return v;
+    }
+
+    public void initiateConnection() {
+        new DiscoveryThread(getContext(), new DiscoveryThread.Receiver() {
+            @Override
+            public void addAnnouncedServers(final ArrayList<ServerAddress> servers) {
+                Log.d(DiscoveryThread.TAG, servers.toString());
+                getActivity().runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        Toast.makeText(getContext(), "Found "+servers.size()+ " server(s)", Toast.LENGTH_SHORT).show();
+                        if(servers.size() > 0) {
+                            ServerAddress s = servers.get(0);
+                            Toast.makeText(getContext(), s.getmAddr()+"/"+s.getmName(), Toast.LENGTH_SHORT).show();
+                            Constants.putServerName(getContext(), s.getmName());
+                            Constants.putServerAddress(getContext(), s.getmAddr());
+                        }
+                        setConnectionInfo();
+                    }
+                });
+
+            }
+        }).start();
+    }
+
+    public void disconnectConnection() {
+        Toast.makeText(getContext(), "Disconnected", Toast.LENGTH_SHORT).show();
+        Constants.putServerAddress(getContext(), null);
+        Constants.putServerName(getContext(), null);
+        setConnectionInfo();
     }
 
     public void setConnectionInfo() {
@@ -126,4 +143,17 @@ public class HomeFragment extends Fragment {
         }
     }
 
+    @Override
+    public void hearShake() {
+
+        if(getContext() == null) {
+            return;
+        }
+
+        if(Constants.isServerConnected(getContext())) {
+            disconnectConnection();
+        } else {
+            initiateConnection();
+        }
+    }
 }

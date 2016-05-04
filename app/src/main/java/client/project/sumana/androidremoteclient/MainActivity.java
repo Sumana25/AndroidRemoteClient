@@ -12,6 +12,9 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.Toast;
+
+import com.squareup.seismic.ShakeDetector;
 
 import client.project.sumana.androidremoteclient.buttonfragment.ButtonFragment;
 import client.project.sumana.androidremoteclient.constants.Constants;
