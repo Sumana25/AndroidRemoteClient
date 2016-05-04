@@ -2,16 +2,21 @@ package client.project.sumana.androidremoteclient.homefragment;
 
 
 import android.os.Bundle;
+import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.TextView;
+import android.widget.Toast;
 
 import java.util.ArrayList;
+import java.util.concurrent.RunnableFuture;
 
 import client.project.sumana.androidremoteclient.R;
+import client.project.sumana.androidremoteclient.constants.Constants;
 import client.project.sumana.androidremoteclient.discovery.DiscoveryThread;
 import client.project.sumana.androidremoteclient.discovery.ServerAddress;
 
@@ -29,6 +34,8 @@ public class HomeFragment extends Fragment {
     // TODO: Rename and change types of parameters
     private String mParam1;
     private String mParam2;
+
+    TextView connectionInfo;
 
 
     public HomeFragment() {
@@ -68,18 +75,55 @@ public class HomeFragment extends Fragment {
         // Inflate the layout for this fragment
         View v = inflater.inflate(R.layout.fragment_home, container, false);
         Button discoverButton = (Button) v.findViewById(R.id.discover_button);
+        Button disconnectButton = (Button) v.findViewById(R.id.disconnect_button);
+        connectionInfo = (TextView) v.findViewById(R.id.connection_info);
         discoverButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 new DiscoveryThread(getContext(), new DiscoveryThread.Receiver() {
                     @Override
-                    public void addAnnouncedServers(ArrayList<ServerAddress> servers) {
+                    public void addAnnouncedServers(final ArrayList<ServerAddress> servers) {
                         Log.d(DiscoveryThread.TAG, servers.toString());
+                        getActivity().runOnUiThread(new Runnable() {
+                            @Override
+                            public void run() {
+                                Toast.makeText(getContext(), "Found "+servers.size()+ " server(s)", Toast.LENGTH_SHORT).show();
+                                if(servers.size() > 0) {
+                                    ServerAddress s = servers.get(0);
+                                    Toast.makeText(getContext(), s.getmAddr()+"/"+s.getmName(), Toast.LENGTH_SHORT).show();
+                                    Constants.putServerName(getContext(), s.getmName());
+                                    Constants.putServerAddress(getContext(), s.getmAddr());
+                                }
+                                setConnectionInfo();
+                            }
+                        });
+
                     }
                 }).start();
             }
         });
+
+        disconnectButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Toast.makeText(getContext(), "Disconnected", Toast.LENGTH_SHORT).show();
+                Constants.putServerAddress(getContext(), null);
+                Constants.putServerName(getContext(), null);
+                setConnectionInfo();
+            }
+        });
+        setConnectionInfo();
         return v;
+    }
+
+    public void setConnectionInfo() {
+        String serverName = Constants.getServerName(getContext());
+        String serverAddress = Constants.getServerAddress(getContext());
+        if(serverAddress == null || serverName == null || serverAddress.equals("") || serverName.equals("")) {
+            connectionInfo.setText("Not connected to server");
+        } else {
+            connectionInfo.setText("Connected to "+ serverName + " ("+serverAddress+")");
+        }
     }
 
 }

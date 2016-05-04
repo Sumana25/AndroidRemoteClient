@@ -7,10 +7,20 @@
 
 <ImageView
     android:id="@+id/image_button"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    android:layout_width="250dp"
+    android:layout_height="250dp"
     android:src="@drawable/ic_keyboard_voice_black_48dp"
-    android:layout_margin="100dp" />
+    android:layout_gravity="center" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Speak to type"
+            android:id="@+id/type_button"/>
+    </LinearLayout>
 
 
 </LinearLayout>

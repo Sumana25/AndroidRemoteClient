@@ -10,6 +10,7 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.Toast;
@@ -17,6 +18,7 @@ import android.widget.Toast;
 import com.loopj.android.http.AsyncHttpResponseHandler;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Locale;
 
 import client.project.sumana.androidremoteclient.R;
@@ -39,7 +41,9 @@ public class VoiceFragment extends Fragment {
     private String mParam1;
     private String mParam2;
     private ImageView voiceBtn;
+    private Button typeButton;
     public static final int REQ_CODE_SPEECH_INPUT = 0x1;
+    public static final int REQ_CODE_SPEECH_TYPING = 0x2;
 
     public VoiceFragment() {
         // Required empty public constructor
@@ -78,11 +82,17 @@ public class VoiceFragment extends Fragment {
         // Inflate the layout for this fragment
         View v = inflater.inflate(R.layout.fragment_voice, container, false);
         voiceBtn = (ImageView) v.findViewById(R.id.image_button);
-
+        typeButton = (Button) v.findViewById(R.id.type_button);
         voiceBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 promptSpeechInput();
+            }
+        });
+        typeButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                promptSpeechInputForTyping();
             }
         });
 
@@ -106,6 +116,22 @@ public class VoiceFragment extends Fragment {
         }
     }
 
+    private void promptSpeechInputForTyping() {
+        Intent intent = new Intent(RecognizerIntent.ACTION_RECOGNIZE_SPEECH);
+        intent.putExtra(RecognizerIntent.EXTRA_LANGUAGE_MODEL,
+                RecognizerIntent.LANGUAGE_MODEL_FREE_FORM);
+        intent.putExtra(RecognizerIntent.EXTRA_LANGUAGE, Locale.getDefault());
+        intent.putExtra(RecognizerIntent.EXTRA_PROMPT,
+                "Speak text");
+        try {
+            startActivityForResult(intent, REQ_CODE_SPEECH_TYPING);
+        } catch (ActivityNotFoundException a) {
+            Toast.makeText(getActivity().getApplicationContext(),
+                    "Speech not supported",
+                    Toast.LENGTH_SHORT).show();
+        }
+    }
+
     @Override
      public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
@@ -118,8 +144,26 @@ public class VoiceFragment extends Fragment {
                             .getStringArrayListExtra(RecognizerIntent.EXTRA_RESULTS);
                     String voiceData = result.get(0);
                     voiceData = voiceData.replace(" ","_").toLowerCase();
+
+
+                    runVoiceCommand(voiceData, "");
                     Toast.makeText(getActivity(), voiceData, Toast.LENGTH_SHORT).show();
-                    runVoiceCommand(voiceData);
+
+
+                }
+                break;
+            }
+            case REQ_CODE_SPEECH_TYPING: {
+                if (resultCode == Activity.RESULT_OK && null != data) {
+
+                    ArrayList<String> result = data
+                            .getStringArrayListExtra(RecognizerIntent.EXTRA_RESULTS);
+                    String voiceData = result.get(0);
+
+                    runVoiceCommand("type", voiceData);
+                    Toast.makeText(getActivity(), voiceData, Toast.LENGTH_SHORT).show();
+
+
                 }
                 break;
             }
@@ -127,8 +171,8 @@ public class VoiceFragment extends Fragment {
         }
     }
 
-    public void runVoiceCommand(String command) {
-        HTTPRequestClient.get(Constants.getAbsoluteUrl("/do_action?action="+command, getContext()),
+    public void runVoiceCommand(String command, String arg) {
+        HTTPRequestClient.get(Constants.getAbsoluteUrl("/do_action?action="+command+"&arg="+arg, getContext()),
                 null,
                 new AsyncHttpResponseHandler() {
                     @Override

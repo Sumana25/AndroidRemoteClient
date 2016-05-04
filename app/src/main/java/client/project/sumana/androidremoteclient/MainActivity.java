@@ -14,6 +14,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 
 import client.project.sumana.androidremoteclient.buttonfragment.ButtonFragment;
+import client.project.sumana.androidremoteclient.constants.Constants;
 import client.project.sumana.androidremoteclient.homefragment.HomeFragment;
 import client.project.sumana.androidremoteclient.voicefragment.VoiceFragment;
 
@@ -27,6 +28,9 @@ public class MainActivity extends AppCompatActivity
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
+        //Reset server every time
+        Constants.putServerAddress(this, null);
+        Constants.putServerName(this, null);
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
@@ -38,6 +42,8 @@ public class MainActivity extends AppCompatActivity
         navigationView.setNavigationItemSelectedListener(this);
 
         getSupportFragmentManager().beginTransaction().add(R.id.fragment_holder, HomeFragment.newInstance("","")).commit();
+
+
 
     }
 
@@ -78,6 +84,11 @@ public class MainActivity extends AppCompatActivity
     public boolean onNavigationItemSelected(MenuItem item) {
         // Handle navigation view item clicks here.
         int id = item.getItemId();
+
+        if(id != R.id.nav_home && !Constants.isServerConnected(this)) {
+            Constants.showErrorDialog("Server disconnected", "Connect to a server first", this);
+            return false;
+        }
 
         if (id == R.id.nav_home) {
             getSupportFragmentManager().beginTransaction().replace(R.id.fragment_holder, HomeFragment.newInstance("","")).commit();

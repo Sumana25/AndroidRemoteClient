@@ -133,9 +133,9 @@ public class DiscoveryThread extends Thread {
                     continue;
                 }
                 Log.d(TAG, "Packet received after "+ (System.currentTimeMillis() - start) + " " + s);
-                InetAddress sourceAddress = packet.getAddress();
                 Log.d(TAG, "Parsing response from "+packet.getAddress().getHostAddress()+"...:" + s);
-                Constants.putServerAddress(mContext, packet.getAddress().getHostAddress());
+                ServerAddress serverAddress = new ServerAddress(s.toString().split(";")[1], packet.getAddress().getHostAddress());
+                servers.add(serverAddress);
 
             }
         } catch (SocketTimeoutException e) {
