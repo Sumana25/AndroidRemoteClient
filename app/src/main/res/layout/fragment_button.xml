@@ -5,19 +5,187 @@
     android:orientation="vertical"
     tools:context="client.project.sumana.androidremoteclient.buttonfragment.ButtonFragment"
     android:gravity="center_horizontal">
-
+<ScrollView
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
 <Button
     android:id="@+id/notepad_button"
-    android:layout_width="match_parent"
+    android:layout_width="200dp"
     android:layout_height="wrap_content"
     android:text="Open Notepad"
-    android:layout_margin="10dp"/>
+    android:theme="@style/AppTheme"
+    android:layout_margin="10dp"
+    android:layout_gravity="center_horizontal" />
 
     <Button
         android:id="@+id/video_player__button"
-        android:layout_width="match_parent"
+        android:layout_width="200dp"
         android:layout_height="wrap_content"
         android:text="Video Player"
-        android:layout_margin="10dp"/>
+        android:theme="@style/AppTheme"
+        android:layout_margin="10dp"
+        android:layout_gravity="center_horizontal" />
 
+    <Button
+        android:layout_width="200dp"
+        android:layout_height="wrap_content"
+        android:text="MP3 Player"
+        android:id="@+id/mp3_button"
+        android:layout_gravity="center_horizontal"
+        android:theme="@style/AppTheme"
+        android:layout_margin="10dp" />
+
+    <Button
+        android:layout_width="200dp"
+        android:layout_height="wrap_content"
+        android:text="Switch Window"
+        android:id="@+id/switch_window_button"
+        android:layout_gravity="center_horizontal"
+        android:theme="@style/AppTheme"
+        android:layout_margin="10dp" />
+
+    <Button
+        android:layout_width="200dp"
+        android:layout_height="wrap_content"
+        android:text="Calculator"
+        android:id="@+id/calculator_button"
+        android:layout_gravity="center_horizontal"
+        android:theme="@style/AppTheme"
+        android:layout_margin="10dp" />
+
+    <Button
+        android:layout_width="200dp"
+        android:layout_height="wrap_content"
+        android:text="File Explorer"
+        android:id="@+id/file_explorer_button"
+        android:layout_gravity="center_horizontal"
+        android:theme="@style/AppTheme"
+        android:layout_margin="10dp" />
+
+    <Button
+        style="?android:attr/buttonStyleSmall"
+        android:layout_width="200dp"
+        android:layout_height="wrap_content"
+        android:text="Photos"
+        android:id="@+id/photos_button"
+        android:layout_gravity="center_horizontal"
+        android:theme="@style/AppTheme"
+        android:layout_margin="10dp" />
+
+    <Button
+        android:layout_width="200dp"
+        android:layout_height="wrap_content"
+        android:text="Google"
+        android:id="@+id/google_button"
+        android:layout_gravity="center_horizontal"
+        android:theme="@style/AppTheme"
+        android:layout_margin="10dp" />
+
+    <Button
+        android:layout_width="200dp"
+        android:layout_height="wrap_content"
+        android:text="Page Down"
+        android:id="@+id/page_down_button"
+        android:layout_gravity="center_horizontal"
+        android:theme="@style/AppTheme"
+        android:layout_margin="10dp" />
+
+    <Button
+        android:layout_width="200dp"
+        android:layout_height="wrap_content"
+        android:text="Page up"
+        android:id="@+id/page_up_button"
+        android:layout_gravity="center_horizontal"
+        android:theme="@style/AppTheme"
+        android:layout_margin="10dp" />
+
+    <Button
+        android:layout_width="200dp"
+        android:layout_height="wrap_content"
+        android:text="Close window"
+        android:id="@+id/close_window_button"
+        android:layout_gravity="center_horizontal"
+        android:theme="@style/AppTheme"
+        android:layout_margin="10dp" />
+
+    <Button
+        android:layout_width="200dp"
+        android:layout_height="wrap_content"
+        android:text="Home"
+        android:id="@+id/home_button"
+        android:layout_gravity="center_horizontal"
+        android:theme="@style/AppTheme"
+        android:layout_margin="10dp" />
+
+    <Button
+        android:layout_width="200dp"
+        android:layout_height="wrap_content"
+        android:text="End"
+        android:id="@+id/end_button"
+        android:layout_gravity="center_horizontal"
+        android:theme="@style/AppTheme"
+        android:layout_margin="10dp" />
+
+    <Button
+        android:layout_width="200dp"
+        android:layout_height="wrap_content"
+        android:text="Enter"
+        android:id="@+id/enter_button"
+        android:layout_gravity="center_horizontal"
+        android:theme="@style/AppTheme"
+        android:layout_margin="10dp" />
+
+        <Button
+            android:layout_width="200dp"
+            android:layout_height="wrap_content"
+            android:text="Next Program"
+            android:id="@+id/alt_tab"
+            android:layout_gravity="center_horizontal"
+            android:theme="@style/AppTheme"
+            android:layout_margin="10dp" />
+
+        <Button
+            android:layout_width="200dp"
+            android:layout_height="wrap_content"
+            android:text="Previous Program"
+            android:id="@+id/alt_shift_tab"
+            android:layout_gravity="center_horizontal"
+            android:theme="@style/AppTheme"
+            android:layout_margin="10dp" />
+
+        <Button
+            android:layout_width="200dp"
+            android:layout_height="wrap_content"
+            android:text="Next Tab"
+            android:id="@+id/ctrl_tab"
+            android:layout_gravity="center_horizontal"
+            android:theme="@style/AppTheme"
+            android:layout_margin="10dp" />
+
+        <Button
+            android:layout_width="200dp"
+            android:layout_height="wrap_content"
+            android:text="Previous Tab"
+            android:id="@+id/ctrl_shift_tab"
+            android:layout_gravity="center_horizontal"
+            android:theme="@style/AppTheme"
+            android:layout_margin="10dp" />
+
+        <Button
+            android:layout_width="200dp"
+            android:layout_height="wrap_content"
+            android:text="Close Tab"
+            android:id="@+id/close_tab"
+            android:layout_gravity="center_horizontal"
+            android:theme="@style/AppTheme"
+            android:layout_margin="10dp" />
+
+
+
+    </LinearLayout>
+</ScrollView>
 </LinearLayout>

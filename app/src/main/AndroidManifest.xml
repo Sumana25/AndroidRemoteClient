@@ -30,6 +30,15 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="client.project.sumana.androidremoteclient.MainActivity" />
         </activity>
+        <activity
+            android:name=".videoplayer.MP3PlayerActivity"
+            android:label="MP3 Player"
+            android:parentActivityName=".MainActivity"
+            android:theme="@style/AppTheme.NoActionBar">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="client.project.sumana.androidremoteclient.MainActivity" />
+        </activity>
     </application>
 
 </manifest>

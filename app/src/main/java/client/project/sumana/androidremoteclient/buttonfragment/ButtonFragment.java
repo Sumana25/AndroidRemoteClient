@@ -17,13 +17,14 @@ import java.io.UnsupportedEncodingException;
 import client.project.sumana.androidremoteclient.R;
 import client.project.sumana.androidremoteclient.constants.Constants;
 import client.project.sumana.androidremoteclient.http.HTTPRequestClient;
+import client.project.sumana.androidremoteclient.videoplayer.MP3PlayerActivity;
 import client.project.sumana.androidremoteclient.videoplayer.VideoPlayerActivity;
 import cz.msebera.android.httpclient.Header;
 
 /**
  * A simple {@link Fragment} subclass.
  * Use the {@link ButtonFragment#newInstance} factory method to
- * create an instance of this fragment.
+ * create an instance of this fragmen   t.
  */
 public class ButtonFragment extends Fragment {
     // TODO: Rename parameter arguments, choose names that match
@@ -35,8 +36,8 @@ public class ButtonFragment extends Fragment {
     private String mParam1;
     private String mParam2;
 
-    Button notepadButton, videoPlayerButton;
-
+    Button notepadButton, videoPlayerButton, mp3Button, switchWindowButton, calculatorButton, fileExplorerButton, photosButton, googleButton, pageDownButton, pageUpButton, closeWindowButton, homeButton, endButton, enterButton;
+    Button nextTab, prevTab, nextProg, prevProg, closeTab;
 
     public ButtonFragment() {
         // Required empty public constructor
@@ -76,28 +77,28 @@ public class ButtonFragment extends Fragment {
         View v = inflater.inflate(R.layout.fragment_button, container, false);
         notepadButton = (Button) v.findViewById(R.id.notepad_button);
         videoPlayerButton = (Button) v.findViewById(R.id.video_player__button);
+        mp3Button = (Button) v.findViewById(R.id.mp3_button);
+        switchWindowButton = (Button) v.findViewById(R.id.switch_window_button);
+        calculatorButton = (Button) v.findViewById(R.id.calculator_button);
+        fileExplorerButton = (Button) v.findViewById(R.id.file_explorer_button);
+        photosButton = (Button) v.findViewById(R.id.photos_button);
+        googleButton = (Button) v.findViewById(R.id.google_button);
+        pageDownButton = (Button) v.findViewById(R.id.page_down_button);
+        pageUpButton = (Button) v.findViewById(R.id.page_up_button);
+        closeWindowButton = (Button) v.findViewById(R.id.close_window_button);
+        homeButton = (Button) v.findViewById(R.id.home_button);
+        endButton = (Button) v.findViewById(R.id.end_button);
+        enterButton = (Button) v.findViewById(R.id.enter_button);
+        nextTab = (Button) v.findViewById(R.id.ctrl_tab);
+        prevTab = (Button) v.findViewById(R.id.ctrl_shift_tab);
+        nextProg = (Button) v.findViewById(R.id.alt_tab);
+        prevProg = (Button) v.findViewById(R.id.alt_shift_tab);
+        closeTab = (Button) v.findViewById(R.id.close_tab);
+
         notepadButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                HTTPRequestClient.get(Constants.getAbsoluteUrl("/do_action?action=open_notepad", getContext()),
-                        null,
-                        new AsyncHttpResponseHandler() {
-                            @Override
-                            public void onSuccess(int statusCode, Header[] headers, byte[] responseBody) {
-                                //Success code
-                                try {
-                                    Toast.makeText(getActivity(), new String(responseBody, "UTF-8"), Toast.LENGTH_SHORT).show();
-                                } catch (UnsupportedEncodingException e) {
-                                    e.printStackTrace();
-                                }
-                            }
-
-                            @Override
-                            public void onFailure(int statusCode, Header[] headers, byte[] responseBody, Throwable error) {
-                                //Failure code
-                                Toast.makeText(getActivity(), error.getMessage(), Toast.LENGTH_SHORT).show();
-                            }
-                        });
+                doAction("open_notepad");
             }
         });
 
@@ -109,7 +110,151 @@ public class ButtonFragment extends Fragment {
             }
         });
 
+        mp3Button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent i = new Intent(getActivity(), MP3PlayerActivity.class);
+                startActivity(i);
+            }
+        });
+
+        switchWindowButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                doAction("switch_window");
+            }
+        });
+
+        calculatorButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                doAction("calculator");
+            }
+        });
+
+        fileExplorerButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                doAction("explorer");
+            }
+        });
+
+        photosButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                doAction("photos");
+            }
+        });
+
+        googleButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                doAction("google");
+            }
+        });
+
+        pageDownButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                doAction("page_down");
+            }
+        });
+
+        pageUpButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                doAction("page_up");
+            }
+        });
+
+        closeWindowButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                doAction("close_window");
+            }
+        });
+
+        homeButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                doAction("home");
+            }
+        });
+
+        endButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                doAction("end");
+            }
+        });
+
+        enterButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                doAction("enter");
+            }
+        });
+
+        nextTab.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                doAction("next_tab");
+            }
+        });
+
+        prevTab.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                doAction("prev_tab");
+            }
+        });
+
+        nextProg.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                doAction("next_prog");
+            }
+        });
+
+        prevProg.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                doAction("prev_prog");
+            }
+        });
+
+        closeTab.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                doAction("close_tab");
+            }
+        });
+
         return v;
     }
 
+
+    public void doAction(String action) {
+        HTTPRequestClient.get(Constants.getAbsoluteUrl("/do_action?action="+action, getContext()),
+                null,
+                new AsyncHttpResponseHandler() {
+                    @Override
+                    public void onSuccess(int statusCode, Header[] headers, byte[] responseBody) {
+                        //Success code
+                        try {
+                            Toast.makeText(getActivity(), new String(responseBody, "UTF-8"), Toast.LENGTH_SHORT).show();
+                        } catch (UnsupportedEncodingException e) {
+                            e.printStackTrace();
+                        }
+                    }
+
+                    @Override
+                    public void onFailure(int statusCode, Header[] headers, byte[] responseBody, Throwable error) {
+                        //Failure code
+                        Toast.makeText(getActivity(), error.getMessage(), Toast.LENGTH_SHORT).show();
+                    }
+                });
+    }
+
 }
+

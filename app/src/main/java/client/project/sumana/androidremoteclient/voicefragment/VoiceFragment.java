@@ -41,7 +41,7 @@ public class VoiceFragment extends Fragment {
     private String mParam1;
     private String mParam2;
     private ImageView voiceBtn;
-    private Button typeButton;
+    private ImageView typeButton;
     public static final int REQ_CODE_SPEECH_INPUT = 0x1;
     public static final int REQ_CODE_SPEECH_TYPING = 0x2;
 
@@ -82,7 +82,7 @@ public class VoiceFragment extends Fragment {
         // Inflate the layout for this fragment
         View v = inflater.inflate(R.layout.fragment_voice, container, false);
         voiceBtn = (ImageView) v.findViewById(R.id.image_button);
-        typeButton = (Button) v.findViewById(R.id.type_button);
+        typeButton = (ImageView) v.findViewById(R.id.type_button);
         voiceBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

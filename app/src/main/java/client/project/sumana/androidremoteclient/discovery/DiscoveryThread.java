@@ -93,7 +93,8 @@ public class DiscoveryThread extends Thread {
      * Calculate the broadcast IP we need to send the packet along. If we send
      * it to 255.255.255.255, it never gets sent. I guess this has something to
      * do with the mobile network not wanting to do broadcast.
-     */
+     * **/
+
     public InetAddress getBroadcastAddress() throws IOException {
         DhcpInfo dhcp = mWifi.getDhcpInfo();
         if (dhcp == null) {

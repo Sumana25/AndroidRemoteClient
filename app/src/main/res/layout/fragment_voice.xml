@@ -7,19 +7,41 @@
 
 <ImageView
     android:id="@+id/image_button"
-    android:layout_width="250dp"
-    android:layout_height="250dp"
+    android:layout_width="150dp"
+    android:layout_height="150dp"
     android:src="@drawable/ic_keyboard_voice_black_48dp"
-    android:layout_gravity="center" />
+    android:layout_gravity="center"
+    android:layout_marginTop="10dp"
+    android:background="@color/button_material_light" />
 
     <LinearLayout
+        android:orientation="vertical"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
-        <Button
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Tap to speak"
+            android:id="@+id/textView2"
+            android:gravity="center_horizontal" />
+
+        <ImageView
+            android:id="@+id/type_button"
+            android:layout_width="150dp"
+            android:layout_height="150dp"
+            android:src="@drawable/ic_keyboard_voice_black_48dp"
+            android:layout_gravity="center"
+            android:layout_marginTop="50dp"
+            android:background="@color/button_material_light" />
+        <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="Speak to type"
-            android:id="@+id/type_button"/>
+            android:id="@+id/textView3"
+            android:gravity="center_horizontal" />
+
+
     </LinearLayout>
 
 
